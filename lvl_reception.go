@@ -29,6 +29,19 @@ var receptionStruct *ReceptionLevel
 var receptors []*Receptor
 var receptorKinase map[*Receptor]*Kinase
 
+// Signal stores 4 different shapes
+func matchSR(signalType string, receptorType string) bool {
+	return signalReceptor[signalType] == receptorType
+}
+
+var signalReceptor = map[string]string{
+	"signalA":"receptorA", 
+	"signalB":"receptorB", 
+	"signalC":"receptorC", 
+	"signalD":"receptorD", 
+}
+
+
 func newReceptionLevel(g *Game) {
 	if len(g.receptionSprites) == 0 {
 		receptionStruct = &ReceptionLevel{
