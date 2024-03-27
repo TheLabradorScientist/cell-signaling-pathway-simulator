@@ -115,7 +115,6 @@ extern "C" {
    #undef GLAPIENTRY
    #undef GLFW_GLAPIENTRY_DEFINED
   #endif
-  #include <GL/glx.h>
  #endif
  #if defined(GLFW_EXPOSE_NATIVE_EGL)
   #include <EGL/egl.h>
