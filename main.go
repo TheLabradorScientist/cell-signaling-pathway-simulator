@@ -26,88 +26,107 @@ var (
 	heightRatio               = float64(maxHeight / baseScreenHeight)
 
 	audioContext *audio.Context
-	audioPlayer       *audio.Player
+	audioPlayer  *audio.Player
 
-	err               error
-	scene             string = "Main Menu"
+	err   error
+	scene string = "Main Menu"
 
 	otherToMenuButton Button
 	info              string
 	infoButton        InfoPage
 
-	reset             bool
-	defaultFont       Font
-	codonFont         Font
+	reset       bool
+	defaultFont Font
+	codonFont   Font
 
-	seedSignal        int
-	template          = [5]string{}
+	seedSignal int
+	template   = [5]string{}
+
+	adenine   Nucleobase
+	thymine   Nucleobase
+	guanine   Nucleobase
+	cytosine  Nucleobase
+	uracil    Nucleobase
+	aminoAcid Nucleobase
+	stop      Nucleobase
 )
 
 type Game struct {
-	switchedScene         bool
-	stateMachine          *StateMachine
+	switchedScene bool
+	stateMachine  *StateMachine
 
-	state_array       []GUI
+	state_array []GUI
 
-	menuSprites []GUI
-	aboutSprites []GUI
-	levSelSprites []GUI
-	receptionSprites []GUI
-	transductionSprites []GUI
+	menuSprites          []GUI
+	aboutSprites         []GUI
+	levSelSprites        []GUI
+	receptionSprites     []GUI
+	transductionSprites  []GUI
 	transcriptionSprites []GUI
-	translationSprites []GUI
+	translationSprites   []GUI
+}
+
+func executableDir() string {
+    // Get the absolute path of the executable
+    exePath, err := os.Executable()
+    if err != nil {
+        panic(err) // Handle error
+    }
+    // Get the directory of the executable
+    dir := filepath.Dir(exePath)
+    return dir
 }
 
 func loadFile(image string) string {
-	// Construct path to file
-	imagepath := filepath.Join("Assets", "Images", image)
-	// Open file
-	file, err := os.Open(imagepath)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return "Error"
-	}
-
-	defer file.Close()
-
-	return file.Name()
+    // Get the absolute path to the Assets/Images directory
+    imageDir := filepath.Join(executableDir(), "Assets", "Images")
+    // Construct the absolute path to the image file
+    imagepath := filepath.Join(imageDir, image)
+    // Open file
+    file, err := os.Open(imagepath)
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return "Error"
+    }
+    defer file.Close()
+    return file.Name()
 }
 
-func loadFont(font string) string {
-	// Construct path to file
-	fontpath := filepath.Join("Assets", "Fonts", font)
-	// Open file
-	file, err := os.Open(fontpath)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return "Error"
-	}
-
-	defer file.Close()
-
-	return file.Name()
+func loadFont(image string) string {
+    // Get the absolute path to the Assets/Images directory
+    fontDir := filepath.Join(executableDir(), "Assets", "Fonts")
+    // Construct the absolute path to the image file
+    fontpath := filepath.Join(fontDir, image)
+    // Open file
+    file, err := os.Open(fontpath)
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return "Error"
+    }
+    defer file.Close()
+    return file.Name()
 }
 
 func loadMusic(music string) string {
-	// Construct path to file
-	musicpath := filepath.Join("Assets", "Music", music)
-	// Open file
-	file, err := os.Open(musicpath)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return "Error"
-	}
-
-	defer file.Close()
-
-	return file.Name()
+    // Get the absolute path to the Assets/Images directory
+    musicDir := filepath.Join(executableDir(), "Assets", "Music")
+    // Construct the absolute path to the image file
+    musicpath := filepath.Join(musicDir, music)
+    // Open file
+    file, err := os.Open(musicpath)
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return "Error"
+    }
+    defer file.Close()
+    return file.Name()
 }
 
 func (g *Game) init() {
 	ebiten.SetWindowPosition(100, 0)
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeOnlyFullscreenEnabled)
-	
+
 	defaultFont = newFont(loadFont("CourierPrime-Regular.ttf"), 32)
 	codonFont = newFont(loadFont("BlackOpsOne-Regular.ttf"), 60)
 
@@ -133,6 +152,13 @@ func (g *Game) init() {
 
 	infoButton = newInfoPage("infoButton.png", "infoPage.png", newRect(850, 0, 165, 165), "btn")
 	otherToMenuButton = newButton("menuButton.png", newRect(1000, 0, 300, 200), ToMenu)
+	adenine = newNucleobase("A", newRect(100, 500, 65, 150), 0, false)
+	thymine = newNucleobase("T", newRect(100, 500, 65, 150), 0, false)
+	guanine = newNucleobase("G", newRect(100, 500, 65, 150), 0, false)
+	cytosine = newNucleobase("C", newRect(100, 500, 65, 150), 0, false)
+	uracil = newNucleobase("U", newRect(100, 500, 65, 150), 0, false)
+	aminoAcid = newNucleobase("X", newRect(0, 0, 60, 60), 1, false)
+	stop = newNucleobase("STOP", newRect(0, 0, 60, 60), 1, false)
 
 	var s_map = SceneConstructorMap{
 		"Main Menu": newMainMenu, "About": newAbout, "Level Selection": newLevelSelection,

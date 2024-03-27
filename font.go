@@ -1,10 +1,5 @@
 package main
 
-// Anything else? I'm gonna close VSCode
-//I'm just copying this down
-//to  Surceheck  the run but I'm good
-// Cool
-// I'mma close VScode
 import (
 	"image/color"
 	"log"

@@ -12,9 +12,6 @@ var (
 	mrna     	[5]Template
 	protein  	[5]Transcript	
 	mRNAbases   [15]Nucleobase
-
-	aminoAcid = newNucleobase("X", newRect(0, 0, 60, 60), 1, false)
-	stop = newNucleobase("STOP", newRect(0, 0, 60, 60), 1, false)
 )
 
 type TranslationLevel struct {

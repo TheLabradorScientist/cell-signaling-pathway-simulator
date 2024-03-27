@@ -12,11 +12,6 @@ var (
 	rna         [5]Transcript
 	dna         [5]Template
 	spots       = [3]int{350, 650, 950}
-	adenine     = newNucleobase("A", newRect(100, 500, 65, 150), 0, false)
-	thymine     = newNucleobase("T", newRect(100, 500, 65, 150), 0, false)
-	guanine     = newNucleobase("G", newRect(100, 500, 65, 150), 0, false)
-	cytosine    = newNucleobase("C", newRect(100, 500, 65, 150), 0, false)
-	uracil      = newNucleobase("U", newRect(100, 500, 65, 150), 0, false)
 )
 
 type TranscriptionLevel struct {
