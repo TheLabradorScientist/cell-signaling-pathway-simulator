@@ -79,7 +79,7 @@ func executableDir() string {
 
 func loadFile(image string) string {
     // Get the absolute path to the Assets/Images directory
-    imageDir := filepath.Join(executableDir(), "Assets", "Images")
+    imageDir := filepath.Join(executableDir())
     // Construct the absolute path to the image file
     imagepath := filepath.Join(imageDir, image)
     // Open file
@@ -92,11 +92,11 @@ func loadFile(image string) string {
     return file.Name()
 }
 
-func loadFont(image string) string {
+func loadFont(font string) string {
     // Get the absolute path to the Assets/Images directory
-    fontDir := filepath.Join(executableDir(), "Assets", "Fonts")
+    fontDir := filepath.Join(executableDir())
     // Construct the absolute path to the image file
-    fontpath := filepath.Join(fontDir, image)
+    fontpath := filepath.Join(fontDir, font)
     // Open file
     file, err := os.Open(fontpath)
     if err != nil {
@@ -109,7 +109,7 @@ func loadFont(image string) string {
 
 func loadMusic(music string) string {
     // Get the absolute path to the Assets/Images directory
-    musicDir := filepath.Join(executableDir(), "Assets", "Music")
+   musicDir := filepath.Join(executableDir())
     // Construct the absolute path to the image file
     musicpath := filepath.Join(musicDir, music)
     // Open file
