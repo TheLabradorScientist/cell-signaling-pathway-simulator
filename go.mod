@@ -1,4 +1,4 @@
-module github.com/TheLabradorScientist/Cell_Signaling_Pathway_Simulator
+module Cell_Signaling_Pathway_Simulator
 
 go 1.22
 
